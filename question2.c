@@ -69,13 +69,18 @@ int isPalindrome(char *str) {
     int len = strlen(str);
     initialize(&s); // Efficiently using memory
 
-    for (int i = 0; i < len;i++){
-        char c = str[i];
-        push(&s,c);
+    for (int i = 0; i < len / 2; i++) {
+        push(&s, str[i]);
     }
 
-    for (int i = 0; i < len; i++) {
+    // Determine the starting index for comparison based on string length
+    int start_index = (len % 2 == 0) ? len / 2 : len / 2 + 1;
+
+    // Pop from the stack and compare with the remaining characters in the string
+    for (int i = start_index; i < len; i++) {
         char ch = pop(&s);
+
+        // If the characters don't match, it's not a palindrome
         if (ch != str[i]) {
             return 0; // Not a palindrome
         }
@@ -89,5 +94,7 @@ int main() {
     printf("isPalindrome(%s) %s\n", "racecar", isPalindrome("racecar")==1?"True":"False");
     printf("isPalindrome(%s) %s\n", "pop", isPalindrome("pop")==1?"True":"False");
     printf("isPalindrome(%s) %s\n", "test", isPalindrome("test")==1?"True":"False");
+    printf("isPalindrome(%s) %s\n", "car", isPalindrome("car")==1?"True":"False");
+    printf("isPalindrome(%s) %s\n", "mom", isPalindrome("mom")==1?"True":"False");
     return 0;
 }
